@@ -12,17 +12,19 @@ else
 fi
 
 # Initialize frontend if it doesn't exist
-if [ ! -f "frontend/package.json" ]; then
+if [ ! -d "frontend" ]; then
   echo "🎨 Initializing Vite React TypeScript frontend..."
   npm create vite@latest frontend -- --template react-ts
   cd frontend
   npm install
   cd ..
-else
+elif [ -f "frontend/package.json" ]; then
   echo "📦 Installing frontend dependencies..."
   cd frontend
   npm install
   cd ..
+else
+  echo "⚠️  frontend directory exists but package.json not found, skipping"
 fi
 
 echo "✅ Setup complete! Run 'bash scripts/dev.sh' to start development servers."
